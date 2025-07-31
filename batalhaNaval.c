@@ -1,48 +1,139 @@
 #include <stdio.h>
 
 int main() {
-    //int num_coluna[10]; // se quiser da pra ativar pra melhorar o endereçamento da fita
+
     char colunas[10] = {'A', 'B', 'C','D','E','F', 'G', 'H', 'I','J'};
-    int tabuleiro[10][10] = {}; // aqui ele faz o zero virar agua
+    int tabuleiro[10][10] = {}; // 
+    int numeros =0;
 
-    // Colocando os navios nos endereços, 0 É A - 1 É B E POR AI VAI a parte vertical
-    tabuleiro[4][0] = tabuleiro[5][0] = tabuleiro[6][0] = 3;
-
-    // aqui entra os horizontais - deixei zero pra ficar mais facil (se não tem que fazer sempre -1 pra bater)
-    tabuleiro[9][3] = tabuleiro[9][4] = tabuleiro[9][5] = 3;
-
-
-    //inserindo navios na diagonal que tem as coordenadas iguais - esquerda
-
+    //TRIANGULO numero 8
     for(int i=0; i<3;i++){
-        tabuleiro[i][i]=3; //facil aqui porque é só considerar o seguinte: cada i nesse loop for vai entrar repetido na matriz tabuleiro, representando a diagonal
-
+        tabuleiro[5][i+2]=8; // base do tri
     }
 
-    //diagonal que vem da direita
+    for(int j=0;j<3;j++){
+        tabuleiro[3+j][3+j]=8; //diag direita
+     }
     for(int i=0; i<3; i++){
-        tabuleiro[i][9-i] = 3; //aqui a gente pega qual coluna quer fazer a diagonal e subtrai o numero dela do i (como o navio tem 3 casas o 2C é o limite pra ficar certo, se não ele aparece do outro lado)
+        tabuleiro[3+i][3-i] = 8;// diag esq
+    } 
+       
+    for(int j=0;j<3;j++){
+        tabuleiro[4][3]= 8; //buraco que ficou no meio
     }
+    
 
-    // Exibindo o tabuleiro
-    printf("\n\n\t    BATALHA NAVAL   \n\n"); // ajuste pra centralizar o texto
+
+    printf("\n\n\t    BATALHA NAVAL CONE   \n\n"); // 
 
     //
-    printf("    "); // aqui o\t não funcionou pra alinhar, tive que digitar 4 espaços... ai deu
+    printf("\t"); 
     for (int i = 0; i < 10; i++) {
-        printf("%d", i); // achei legal colocar o numero na frente para saber como identificar o numero da coluna
-        printf("%c   ", colunas[i]); // mais espaços pra encaixar, e as letras da coluna vai entrar no lugar do numero quer seria o i
+
+        printf("%c \t", colunas[i]); 
     }
     printf("\n");
 
     // agora os numeros zero
     for (int i = 0; i < 10; i++) {
-        printf("%d - ", i); // número da linha
+        printf("%d\t",i);
         for (int j = 0; j < 10; j++) {
-            printf("%d    ", tabuleiro[i][j]); //aqui ele pega o que a gente deixou como zero la em cima e imprime, podendo alterar para 3 pra representar o navio
+            printf("%d \t", tabuleiro[i][j]);
         }
         printf("\n");
     }
+
+//PARTE 2 -  A CRUZ
+
+    char colunas2[10] = {'A', 'B', 'C','D','E','F', 'G', 'H', 'I','J'};
+    int tabuleiro2[10][10] = {}; // 
+
+
+    
+    for(int i=0; i<3;i++){
+        tabuleiro2[5][i+6]=5; //direita
+    }
+
+    for(int j=0;j<3;j++){
+        tabuleiro2[j+6][5]=5; //baixo
+     }
+    for(int i=0; i<3;i++){
+        tabuleiro2[5][i+2]=5; //esquerda
+    }
+
+    for(int j=0;j<3;j++){
+        tabuleiro2[j+2][5]=5; //parte de cima
+     }
+    
+    for(int j=0;j<3;j++){
+        tabuleiro2[5][5]=5; //ultimo ponto
+     }
+    
+
+
+    printf("\n\n\t  BATALHA NAVAL - CRUZ  \n\n"); // 
+
+    //
+    printf("\t"); 
+    for (int i = 0; i < 10; i++) {
+        printf("%c \t", colunas2[i]); 
+    }
+    printf("\n");
+
+    // agora os numeros zero
+    for (int i = 0; i < 10; i++) {
+        printf("%d\t", i);
+        for (int j = 0; j < 10; j++) {
+            printf("%d \t", tabuleiro2[i][j]);
+        }
+        printf("\n");
+    }
+
+
+//PARTE 3 -  OCTAEDRO
+
+    char colunas3[10] = {'A', 'B', 'C','D','E','F', 'G', 'H', 'I','J'};
+    int tabuleiro3[10][10] = {}; // 
+
+   for(int i=0; i<3; i++){
+        tabuleiro3[2+i][4-i] = 8;
+   }    
+       for(int i=0; i<3; i++){
+        tabuleiro3[2+i][4+i] = 8;
+    }
+    
+        for(int i=0; i<3; i++){
+        tabuleiro3[6-i][4+i] = 8;
+    }
+    for(int i=0; i<3;i++){
+        for(int j=0;j<3;j++){
+            tabuleiro3[i+3][j+3] = 8;
+        }
+    }
+
+
+    printf("\n\n\t  BATALHA NAVAL - OCTAEDRO  \n\n"); // 
+
+
+    printf("\t"); // a parte das letras - empurrar antes do for
+    for (int i = 0; i < 10; i++) {
+        printf("%c \t", colunas3[i]); 
+    }
+
+    printf("\n");
+
+
+    // agora os numeros zero
+    for (int i = 0; i < 10; i++) {
+        printf("%d\t", i);
+        for (int j = 0;j < 10; j++) {
+            printf("%d \t", tabuleiro3[i][j]);
+        }
+        printf("\n");
+    }
+
+
+
 
     return 0;
 }
